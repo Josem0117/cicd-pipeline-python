@@ -33,7 +33,8 @@ jobs:
       - name: Install dependencies
         # --require-hashes: solo instala las versiones exactas del archivo de bloqueo
         # --only-binary: no ejecuta scripts de instalación de paquetes fuente
-        run: pip install --require-hashes --only-binary :all: -r requirements-dev.txt
+        run: |
+          pip install --require-hashes --only-binary :all: -r requirements-dev.txt
 
       - name: Run Black (Formatter)
         run: black app --check # --check solo verifica, no modifica
