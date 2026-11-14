@@ -26,3 +26,13 @@ def test_dividir():
     assert dividir(5, -1) == -5.0
     with pytest.raises(ZeroDivisionError):
         dividir(1, 0)
+
+
+def test_restar_resultado_negativo():
+    assert restar(2, 5) == -3
+    assert restar(-4, -6) == 2
+
+
+def test_multiplicar_negativos_y_decimales():
+    assert multiplicar(-2, -3) == 6
+    assert multiplicar(0.5, 4) == 2.0
