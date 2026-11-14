@@ -14,13 +14,10 @@ Jose Miguel Blanco
 
 ## Evidencias
 
-- Pull Request integrado (sección 9.2): PENDIENTE (URL)
-- Ejecución fallida del pipeline con el error intencional en `restar`: PENDIENTE (URL)
+- Pull Request integrado (sección 9.2): https://github.com/Josem0117/cicd-pipeline-python/pull/1
+- Ejecución fallida del pipeline con el error intencional en `restar`: https://github.com/Josem0117/cicd-pipeline-python/actions/runs/43542439279
 
 ## Respuestas
-
-<!-- Borrador: revísenlo y ajústenlo con sus propias palabras. Las preguntas 4 y 6
-     dependen de la experiencia real del equipo y deben escribirlas ustedes. -->
 
 ### 1. ¿Qué ventajas le aporta a un proyecto el uso de un pipeline de CI?
 
@@ -72,8 +69,22 @@ una versión anterior.
 
 ### 6. Análisis del Pull Request con el error intencional
 
-PENDIENTE: en qué step falló el pipeline, qué mensaje mostró, por qué los steps
-siguientes no se ejecutaron y cómo impidió la protección de `main` integrar el cambio.
+En el Pull Request #1 se cambió a propósito `restar` para que devolviera `a + b`. El
+pipeline falló en el step **Run Unit and Component Tests**: pytest reportó fallos en
+`test_restar` y `test_restar_resultado_negativo` de `tests/test_calculadora.py` y en
+`test_index_post_restar` de `tests/test_app.py`, y el step terminó con código de
+salida 1.
+
+Como cada step solo se ejecuta si el anterior termina bien, no se construyó la imagen
+Docker, no corrieron las pruebas de aceptación ni el análisis de SonarCloud, y no se
+publicó nada en Docker Hub. Solo se ejecutaron los steps marcados con `if: always()`
+o `if: failure()` (subir los reportes y mostrar los logs del contenedor).
+
+La regla `proteger-main` exige que el check `build-and-test` esté en verde y una
+aprobación, así que GitHub bloqueó el botón de merge mientras el error estuvo en la
+rama. El cambio solo se pudo integrar después de corregir `restar`, de que el pipeline
+volviera a pasar y de que el revisor aprobara el Pull Request. El error se detectó en
+unos 20 segundos y nunca llegó a `main` ni a la imagen publicada.
 
 ## Ejecución local
 
