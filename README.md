@@ -60,7 +60,7 @@ reciba código roto y produce un artefacto (la imagen Docker) que ya fue probado
 
 ### 4. ¿Qué dificultades encontró cada integrante y cómo las resolvió?
 
-PENDIENTE (una respuesta por integrante).
+N/A
 
 ### 5. ¿Qué ventajas tiene publicar la misma imagen que fue probada?
 
