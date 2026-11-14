@@ -6,6 +6,9 @@ from app.app import app
 @pytest.fixture
 def client():
     app.config["TESTING"] = True
+    # Las pruebas de componente envían el formulario sin navegador; el token CSRF
+    # se valida en las pruebas de aceptación, que usan el formulario real.
+    app.config["WTF_CSRF_ENABLED"] = False
     with app.test_client() as client:
         yield client
 
